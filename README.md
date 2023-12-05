@@ -14,6 +14,7 @@ Form a BLAST Search to final potential homologs of my gene
 makeblastdb -in allprotein.fas -dbtype prot
 ```
 **BLAST search against database to identify homologs**
+
 Create a directory for my gene
 ```
 mkdir /home/ec2-user/labs/lab03-$MYGIT/NP_005307.1
@@ -22,24 +23,30 @@ cd /home/ec2-user/labs/lab03-$MYGIT/NP_005307.1
 ```
 ncbi-acc-download -F fasta -m protein NP_005307.1
 ```
+Perform a BLAST search using the query protein
 ```
 blastp -db ../allprotein.fas -query NP_005307.1.fa -outfmt 0 -max_hsps 1 -out NP_005307.1.blastp.typical.out
 ```
 ```
 less NP_005307.1.blastp.typical.out
 ```
+Perform a BLAST search and observe the results using less
 ```
 blastp -db ../allprotein.fas -query NP_005307.1.fa  -outfmt "6 sseqid pident length mismatch gapopen evalue bitscore pident stitle"  -max_hsps 1 -out globins.blastp.detail.out
 ```
+Look at the total number of hits 
 ```
 grep -c H.sapiens NP_005307.1.blastp.detail.out
 ```
+Set the e-value to be less than 1e-35
 ```
 awk '{if ($6< 1e-35)print $1 }' NP_005307.1.blastp.detail.out > NP_005307.1.blastp.detail.filtered.out
 ```
+Use this command for an easier way to count the total number of hits in BLAST results 
 ```
 wc -l NP_005307.1.blastp.detail.filtered.out
 ```
+Use this command to find the number of paralogs for each species 
 ```
 grep -o -E "^[A-Z]\.[a-z]+" NP_005307.1.blastp.detail.filtered.out  | sort | uniq -c
 ```
