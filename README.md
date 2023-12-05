@@ -50,6 +50,7 @@ Use this command to find the number of paralogs for each species
 ```
   grep -o -E "^[A-Z]\.[a-z]+" NP_005307.1.blastp.detail.filtered.out  | sort | uniq -c
 ```
+**Save command history and push into GitHub**
 ```
   history > lab3.commandhistory.txt
 ```
@@ -71,25 +72,43 @@ Use this command to find the number of paralogs for each species
 
 # Final Midpoint Rooted Tree
 
-cd ~/labs/lab06-$MYGIT/NP_005307.1
+**Download Notung** 
+```
+    java -jar ~/tools/Notung-3.0-beta/Notung-3.0-beta.jar --help
+```
+Go into the created folder for your gene 
+```
+    cd ~/labs/lab06-$MYGIT/NP_005307.1
+```
+```
+    cp ~/labs/lab05-$MYGIT/NP_005307.1/NP_005307.1.homologs.al.mid.treefile ~/labs/lab06-$MYGIT/NP_005307.1/NP_005307.1.homologs.al.mid.treefile
+```
+```
+    ls ~/labs/lab06-$MYGIT/NP_005307.1/NP_005307.1.homologs.al.mid.treefile  
+```
+```
+    java -jar ~/tools/Notung-3.0-beta/Notung-3.0-beta.jar -s ~/labs/lab06-$MYGIT/species.tre -g ~/labs/lab06-$MYGIT/NP_005307.1/NP_005307.1.homologs.al.mid.treefile --reconcile --speciestag prefix --savepng --events --outputdir ~/labs/lab06-$MYGIT/NP_005307.1/
+```
+```
+    less -S NP_005307.1.homologs.al.mid.treefile.reconciled.events.txt
+```
+```
+    nw_display ~/labs/lab06-$MYGIT/species.tre
+```
+```
+    grep NOTUNG-SPECIES-TREE ~/labs/lab06-$MYGIT/NP_005307.1/NP_005307.1.homologs.al.mid.treefile.reconciled | sed -e "s/^\[&&NOTUNG-SPECIES-TREE//" -e "s/\]/;/" | nw_display -
+```
+```
+    python2.7 ~/tools/recPhyloXML/python/NOTUNGtoRecPhyloXML.py -g ~/labs/lab06-$MYGIT/NP_005307.1/NP_005307.1.homologs.al.mid.treefile.reconciled --include.species
+```
+```
+View Using thirdking
+```
+thirdkind -Iie -D 40 -f     ~/labs/lab06-$MYGIT/NP_005307.1/NP_005307.1.homologs.al.mid.treefile.reconciled.xml -o  ~/labs/lab06-$MYGIT/NP_005307.1/NP_005307.1.homologs.al.mid.treefile.reconciled.svg
+```
 
-cp ~/labs/lab05-$MYGIT/NP_005307.1/NP_005307.1.homologs.al.mid.treefile ~/labs/lab06-$MYGIT/NP_005307.1/NP_005307.1.homologs.al.mid.treefile
-
-ls ~/labs/lab06-$MYGIT/NP_005307.1/NP_005307.1.homologs.al.mid.treefile  
-
-java -jar ~/tools/Notung-3.0-beta/Notung-3.0-beta.jar -s ~/labs/lab06-$MYGIT/species.tre -g ~/labs/lab06-$MYGIT/NP_005307.1/NP_005307.1.homologs.al.mid.treefile --reconcile --speciestag prefix --savepng --events --outputdir ~/labs/lab06-$MYGIT/NP_005307.1/
-
-less -S NP_005307.1.homologs.al.mid.treefile.reconciled.events.txt
-
-nw_display ~/labs/lab06-$MYGIT/species.tre
-
-grep NOTUNG-SPECIES-TREE ~/labs/lab06-$MYGIT/NP_005307.1/NP_005307.1.homologs.al.mid.treefile.reconciled | sed -e "s/^\[&&NOTUNG-SPECIES-TREE//" -e "s/\]/;/" | nw_display -
-
-python2.7 ~/tools/recPhyloXML/python/NOTUNGtoRecPhyloXML.py -g ~/labs/lab06-$MYGIT/NP_005307.1/NP_005307.1.homologs.al.mid.treefile.reconciled --include.species
-
-thirdkind -Iie -D 40 -f ~/labs/lab06-$MYGIT/NP_005307.1/NP_005307.1.homologs.al.mid.treefile.reconciled.xml -o  ~/labs/lab06-$MYGIT/NP_005307.1/NP_005307.1.homologs.al.mid.treefile.reconciled.svg
-
-history > lab6.commandhistory.txt
+**Save history and commit to GitHub** 
+    history > lab6.commandhistory.txt
 
 cd ~/labs/lab06-$MYGIT
 
