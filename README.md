@@ -1,5 +1,5 @@
-# final
-Final Alignment 
+# Final Alignment 
+
 cd lab03-$MYGIT
 
 gunzip proteomes/*.gz
@@ -28,7 +28,24 @@ wc -l NP_005307.1.blastp.detail.filtered.out
 
 grep -o -E "^[A-Z]\.[a-z]+" NP_005307.1.blastp.detail.filtered.out  | sort | uniq -c
 
-Final Midpoint Rooted Tree
+history > lab3.commandhistory.txt
+
+cd ~/labs/lab06-$MYGIT
+
+find . -size +5M | sed 's|^\./||g' | cat >> .gitignore; awk '!NF || !seen[$0]++' .gitignore
+
+git add .
+
+git status
+
+git commit -a -m "Adding all new data files I generated in AWS to the repository."
+
+git pull --no-edit
+
+git push 
+
+# Final Midpoint Rooted Tree
+
 cd ~/labs/lab06-$MYGIT/NP_005307.1
 
 cp ~/labs/lab05-$MYGIT/NP_005307.1/NP_005307.1.homologs.al.mid.treefile ~/labs/lab06-$MYGIT/NP_005307.1/NP_005307.1.homologs.al.mid.treefile
@@ -63,7 +80,8 @@ git pull --no-edit
 
 git push 
 
-Final Reconciliation
+# Final Reconciliation
+
 cd ~/labs
 
  cd lab08-$MYGIT
@@ -93,3 +111,19 @@ cut -f 6 ~/labs/lab08-$MYGIT/NP_005307.1/NP_005307.1.rps-blast.out | sort | uniq
 awk '{a=$4-$3;print $1,'\t',a;}' ~/labs/lab08-$MYGIT/NP_005307.1/NP_005307.1.rps-blast.out |  sort  -k2nr
 
 cut -f 1,5 -d $'\t' ~/labs/lab08-$MYGIT/NP_005307.1/NP_005307.1.rps-blast.out | sort -k2,2rn -t $'\t' 
+
+history > lab8.commandhistory.txt
+
+cd ~/labs/lab06-$MYGIT
+
+find . -size +5M | sed 's|^\./||g' | cat >> .gitignore; awk '!NF || !seen[$0]++' .gitignore
+
+git add .
+
+git status
+
+git commit -a -m "Adding all new data files I generated in AWS to the repository."
+
+git pull --no-edit
+
+git push 
