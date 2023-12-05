@@ -1,35 +1,52 @@
 # Final Alignment 
 
+Go to you lab folder. 
+```
 cd lab03-$MYGIT
-
+```
+Uncompress proteosomes and put all the protein sequences into a single file 
+```
 gunzip proteomes/*.gz
-
 cat  proteomes/*.faa > allprotein.fas
-
+```
+Form a BLAST Search to final potential homologs of my gene
+```
 makeblastdb -in allprotein.fas -dbtype prot
-
+```
+**BLAST search against database to identify homologs**
+Create a directory for my gene
+```
 mkdir /home/ec2-user/labs/lab03-$MYGIT/NP_005307.1
-
 cd /home/ec2-user/labs/lab03-$MYGIT/NP_005307.1
-
+```
+```
 ncbi-acc-download -F fasta -m protein NP_005307.1
-
+```
+```
 blastp -db ../allprotein.fas -query NP_005307.1.fa -outfmt 0 -max_hsps 1 -out NP_005307.1.blastp.typical.out
-
+```
+```
 less NP_005307.1.blastp.typical.out
-
+```
+```
 blastp -db ../allprotein.fas -query NP_005307.1.fa  -outfmt "6 sseqid pident length mismatch gapopen evalue bitscore pident stitle"  -max_hsps 1 -out globins.blastp.detail.out
-
+```
+```
 grep -c H.sapiens NP_005307.1.blastp.detail.out
-
+```
+```
 awk '{if ($6< 1e-35)print $1 }' NP_005307.1.blastp.detail.out > NP_005307.1.blastp.detail.filtered.out
-
+```
+```
 wc -l NP_005307.1.blastp.detail.filtered.out
-
+```
+```
 grep -o -E "^[A-Z]\.[a-z]+" NP_005307.1.blastp.detail.filtered.out  | sort | uniq -c
-
+```
+```
 history > lab3.commandhistory.txt
-
+```
+```
 cd ~/labs/lab06-$MYGIT
 
 find . -size +5M | sed 's|^\./||g' | cat >> .gitignore; awk '!NF || !seen[$0]++' .gitignore
@@ -43,6 +60,7 @@ git commit -a -m "Adding all new data files I generated in AWS to the repository
 git pull --no-edit
 
 git push 
+```
 
 # Final Midpoint Rooted Tree
 
